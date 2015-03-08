@@ -21,7 +21,7 @@
 				</tr>
 			</tbody>
 		</table>
-		<input type="text" class="form-control" placeholder="Add a new task" ng-model="thisTask">
+		<input type="text" id="add-task" class="form-control" placeholder="Add a new task" ng-model="thisTask" ng-keypress="addTask($event)">
 		<button class="btn btn-primary" ng-click="addTask()">Add</button>
 	</div>
 </div>

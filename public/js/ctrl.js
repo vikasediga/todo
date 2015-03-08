@@ -34,14 +34,16 @@ app.controller("homeCtrl", ['$scope', '$http', 'Data', function ($scope, $http, 
 
 	refresh();
 
-	$scope.addTodo = function () {
+	$scope.addTodo = function ($event) {
 		var data;
-		if ($scope.thisTodo !== undefined) {
-			data = { newTodo: $scope.thisTodo };
-			$http.post("/todo", data).success(function (response) {
-				refresh();
-				$scope.thisTodo = "";
-			});
+		if (!arguments.length || $event.which === 13) {
+			if ($scope.thisTodo !== undefined) {
+				data = { newTodo: $scope.thisTodo };
+				$http.post("/todo", data).success(function (response) {
+					refresh();
+					$scope.thisTodo = "";
+				});
+			}
 		}
 	};
 
@@ -72,14 +74,16 @@ app.controller("todoCtrl", ['$scope', '$http', 'Data', function ($scope, $http, 
 
 	refresh();
 
-	$scope.addTask = function () {
+	$scope.addTask = function ($event) {
 		var data;
-		if ($scope.thisTask !== undefined) {
-			data = { name: $scope.thisTask, done: false };
-			$http.post("/todoList/" + currTodo._id , data).success(function (response) {
-				refresh();
-				$scope.thisTask = "";
-			});
+		if (!arguments.length || $event.which === 13) {
+			if ($scope.thisTask !== undefined) {
+				data = { name: $scope.thisTask, done: false };
+				$http.post("/todoList/" + currTodo._id , data).success(function (response) {
+					refresh();
+					$scope.thisTask = "";
+				});
+			}
 		}
 	};
 
