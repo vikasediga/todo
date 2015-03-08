@@ -57,6 +57,16 @@ app.controller("homeCtrl", ['$scope', '$http', 'Data', function ($scope, $http, 
 		Data.currTodo = currentTodo;
 	};
 
+	// Return List progress bar class based on the tasks completion
+	$scope.getClass = function (completion) {
+	  	if (completion < 30) {
+            return "progress-bar-danger";
+        } else if (completion < 60) {
+            return "progress-bar-warning";
+        } else {
+            return "progress-bar-success";
+        }
+	}
 }])
 
 

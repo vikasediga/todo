@@ -11,6 +11,10 @@
 	background-color: #ffffff;
 }
 
+.todo-status-title {
+	color: white;
+}
+
 body {
 	background-color: #ffe0b2;
 }
