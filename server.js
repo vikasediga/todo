@@ -22,8 +22,8 @@ function updateStatus(todos, cb) {
         var todoTable = todo._id.toString();
         db.collection(todoTable).find({done: true}).toArray(function (err, records) {
             todo['done'] = records.length;
-            // status bar info
-            todo['status'] = Math.floor((todo['done']/todo['total'])*100);
+            // progress bar info
+            todo['progress'] = Math.floor((todo['done']/todo['total'])*100);
             cbDummy();
         });
     }, function (err) {
