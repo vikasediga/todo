@@ -6,13 +6,15 @@
 		<table class="table">
 			<thead>
 				<th>TODO</th>
-				<th>Status</th>
-				<th>Edit?</th>
-				<th>Remove</th>
+				<th>PROGRESS</th>
+				<th>EDIT?</th>
+				<th>REMOVE</th>
 			</thead>
 			<tbody>
 				<tr ng-repeat="todo in todoLists">
-					<td class="col-md-6"><a href="#todoList" ng-click="gotoTodo(todo)">{{todo.name}}</a></td>
+					<td class="col-md-6">
+						<a href="#todoList/{{todo.name}}/{{todo._id}}" ng-click="gotoTodo(todo)">{{todo.name | uppercase}}</a>
+					</td>
 					<td class="col-md-4">
 						<div class="progress">
 						  	<div ng-class="getClass(todo.progress)" role="progressbar" style="width:{{todo.progress}}%">

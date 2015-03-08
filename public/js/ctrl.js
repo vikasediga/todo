@@ -15,17 +15,13 @@ app.config(function($routeProvider) {
         })
 
         // route for the contact page
-        .when('/todoList/', {
+        .when('/todoList/:name/:id', {
             templateUrl : 'html/todoList.html',
             controller  : 'todoCtrl'
         });
 });
 
-app.factory('Data', function () {
-  return {};
-});
-
-app.controller("homeCtrl", ['$scope', '$http', 'Data', function ($scope, $http, Data) {
+app.controller("homeCtrl", ['$scope', '$http', function ($scope, $http) {
 	function refresh () {
 		$http.get("/todo").success(function (response) {
 			$scope.todoLists = response;
@@ -53,9 +49,6 @@ app.controller("homeCtrl", ['$scope', '$http', 'Data', function ($scope, $http, 
 		});
 	};
 
-	$scope.gotoTodo = function (currentTodo) {
-		Data.currTodo = currentTodo;
-	};
 
 	// Return List progress bar class based on the tasks completion
 	$scope.getClass = function (completion) {
@@ -70,13 +63,13 @@ app.controller("homeCtrl", ['$scope', '$http', 'Data', function ($scope, $http, 
 }])
 
 
-app.controller("todoCtrl", ['$scope', '$http', 'Data', function ($scope, $http, Data) {
-	var currTodo = Data.currTodo;
-	$scope.currList = currTodo.name;
+app.controller("todoCtrl", ['$scope', '$http', '$routeParams', function ($scope, $http, $routeParams) {
+	var listId = $routeParams.id;
+	$scope.listName = $routeParams.name;
 
 	function refresh () {
-		if (currTodo) {
-			$http.get("/todoList/" + currTodo._id).success(function (response) {
+		if (listId) {
+			$http.get("/todoList/" + listId).success(function (response) {
 				$scope.tasks = response;
 			});
 		}
@@ -89,7 +82,7 @@ app.controller("todoCtrl", ['$scope', '$http', 'Data', function ($scope, $http, 
 		if (!arguments.length || $event.which === 13) {
 			if ($scope.thisTask !== undefined) {
 				data = { name: $scope.thisTask, done: false };
-				$http.post("/todoList/" + currTodo._id , data).success(function (response) {
+				$http.post("/todoList/" + listId , data).success(function (response) {
 					refresh();
 					$scope.thisTask = "";
 				});
@@ -98,14 +91,14 @@ app.controller("todoCtrl", ['$scope', '$http', 'Data', function ($scope, $http, 
 	};
 
 	$scope.removeTask = function (id) {
-		$http.delete("/todoList/" + currTodo._id + "/task/" + id).success(function (response) {
+		$http.delete("/todoList/" + listId + "/task/" + id).success(function (response) {
 			refresh();
 		});
 	}
 
 	$scope.toggleTask = function (task) {
 		var data = {done: task.done}
-		$http.put("/todoList/" + currTodo._id + "/task/" + task._id, data).success(function (response) {
+		$http.put("/todoList/" + listId + "/task/" + task._id, data).success(function (response) {
 			refresh();
 		});
 	}
