@@ -1,0 +1,16 @@
+.table-title-row {
+	background: -webkit-linear-gradient(#E68A2E, #FF9933);
+	background: -o-linear-gradient(#E68A2E, #FF9933);
+	background: -moz-linear-gradient(#E68A2E, #FF9933);
+	background: -webkit-linear-gradient(#E68A2E, #FF9933); /* Standard syntax */
+    margin-bottom: 10px;
+    color: white;
+}
+
+.row .table {
+	background-color: #ffffff;
+}
+
+body {
+	background-color: #ffe0b2;
+}
