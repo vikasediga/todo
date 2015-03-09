@@ -15,6 +15,11 @@
 	color: white;
 }
 
+.task-done {
+	color: green;
+	text-decoration: line-through;
+}
+
 body {
 	background-color: #ffe0b2;
 }

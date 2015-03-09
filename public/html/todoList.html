@@ -12,12 +12,12 @@
 			</thead>
 			<tbody>
 				<tr ng-repeat="task in tasks">
-					<td class="col-md-9">{{task.name}}</td>
+					<td class="col-md-9" ng-class="{'task-done': task.done}">{{task.name}}</td>
 					<td class="col-md-1">
 						<input type="checkbox" ng-model="task.done" class="form-control" ng-click="toggleTask(task)">
 					</td>
 					<td class="col-md-1"><button class="btn btn-info">Edit</button></td>
-					<td class="col-md-1"><button class="btn btn-danger" ng-click="removeTask(task._id)">Remove</button></td>
+					<td class="col-md-1"><button class="btn btn-danger" ng-click="removeTask(task._id)">-</button></td>
 				</tr>
 			</tbody>
 		</table>

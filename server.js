@@ -60,13 +60,18 @@ app.post('/todo', function (req, res) {
     });
 });
 
+// Drop todo list table.
+// Also delete its reference from the todos table.
 app.delete("/todo/:id", function (req, res) {
-	db.collection('todos').removeById(req.params.id, function (err) {
-        if (err) {
-            res.json(err);
-        } else {
-            res.json({msg: 'Successfully removed todo list'});
-        }
+    db.collection(req.params.id).drop(function () {
+        // Ignore the err as it might be because the table was never created but just a reference.
+        db.collection('todos').removeById(req.params.id, function (err) {
+            if (err) {
+                res.json(err);
+            } else {
+                res.json({msg: 'Successfully removed todo list'});
+            }
+        });
     });
 });
 

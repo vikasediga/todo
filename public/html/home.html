@@ -13,17 +13,17 @@
 			<tbody>
 				<tr ng-repeat="todo in todoLists">
 					<td class="col-md-6">
-						<a href="#todoList/{{todo.name}}/{{todo._id}}" ng-click="gotoTodo(todo)">{{todo.name | uppercase}}</a>
+						<a href="#todoList/{{todo.name}}/{{todo._id}}">{{todo.name | uppercase}}</a>
 					</td>
 					<td class="col-md-4">
 						<div class="progress">
 						  	<div ng-class="getClass(todo.progress)" role="progressbar" style="width:{{todo.progress}}%">
-						    	<span class="todo-progress-title">{{todo.progress}}% Complete</span>
+						    	<span class="todo-progress-title">{{todo.progress}}%</span>
 						  	</div>
 						</div>
 					</td>
 					<td class="col-md-1"><button class="btn btn-info">Edit</button></td>
-					<td class="col-md-1"><button class="btn btn-danger" ng-click="removeTodo(todo._id)">Remove</button></td>
+					<td class="col-md-1"><button class="btn btn-danger" ng-click="removeTodo(todo._id)">-</button></td>
 				</tr>
 			</tbody>
 		</table>
