@@ -1,33 +1,9 @@
-<div class="container text-center">
-	<div class="row table-title-row">
-		<h3>MY LISTS</h3>
-	</div>
+<div class="container">
 	<div class="row">
-		<table class="table">
-			<thead>
-				<th>TODO</th>
-				<th>PROGRESS</th>
-				<th>EDIT?</th>
-				<th>REMOVE</th>
-			</thead>
-			<tbody>
-				<tr ng-repeat="todo in todoLists">
-					<td class="col-md-6">
-						<a href="#todoList/{{todo.name}}/{{todo._id}}">{{todo.name | uppercase}}</a>
-					</td>
-					<td class="col-md-4">
-						<div class="progress">
-						  	<div ng-class="getClass(todo.progress)" role="progressbar" style="width:{{todo.progress}}%">
-						    	<span class="todo-progress-title">{{todo.progress}}%</span>
-						  	</div>
-						</div>
-					</td>
-					<td class="col-md-1"><button class="btn btn-info">Edit</button></td>
-					<td class="col-md-1"><button class="btn btn-danger" ng-click="removeTodo(todo._id)">-</button></td>
-				</tr>
-			</tbody>
-		</table>
-		<input type="text" class="form-control" placeholder="Create a new todo list" ng-model="thisTodo" ng-keypress="addTodo($event)">
-		<button class="btn btn-primary" ng-click="addTodo()">Add</button>
+		<a href="#todoList/init/0">
+			<button class="btn btn-info">
+				<img class="myListsIcon" src="images/myListsIcon.png"><b>My Lists<b>
+			</button>
+		</a>
 	</div>
 </div>

@@ -5,8 +5,7 @@ app.config(function($routeProvider) {
     $routeProvider
         // route for the home page
         .when('/', {
-            templateUrl : 'html/home.html',
-            controller  : 'homeCtrl'
+            templateUrl : 'html/home.html'
         })
 
         // route for the about page
@@ -16,12 +15,11 @@ app.config(function($routeProvider) {
 
         // route for the contact page
         .when('/todoList/:name/:id', {
-            templateUrl : 'html/todoList.html',
-            controller  : 'todoCtrl'
+            templateUrl : 'html/todoList.html'
         });
 });
 
-app.controller("homeCtrl", ['$scope', '$http', function ($scope, $http) {
+app.controller("todosCtrl", ['$scope', '$http', function ($scope, $http) {
 	function refresh () {
 		$http.get("/todo").success(function (response) {
 			$scope.todoLists = response;
@@ -60,10 +58,15 @@ app.controller("homeCtrl", ['$scope', '$http', function ($scope, $http) {
             return "progress-bar-success";
         }
 	}
+
+ 	$scope.$on('todoChange', function(event, args) {
+ 		// on todo change refresh todos
+ 		refresh();
+ 	});
 }])
 
 
-app.controller("todoCtrl", ['$scope', '$http', '$routeParams', function ($scope, $http, $routeParams) {
+app.controller("todoCtrl", ['$scope', '$rootScope', '$http', '$routeParams', function ($scope, $rootScope, $http, $routeParams) {
 	var listId = $routeParams.id;
 	$scope.listName = $routeParams.name;
 
@@ -75,7 +78,14 @@ app.controller("todoCtrl", ['$scope', '$http', '$routeParams', function ($scope,
 		}
 	}
 
-	refresh();
+	if ($scope.listName === 'init') {
+		$scope.init = true;
+		$rootScope.todosZoomIn = true;
+	} else {
+		$scope.init = false;
+		$rootScope.todosZoomIn = false;
+		refresh();
+	}
 
 	$scope.addTask = function ($event) {
 		var data;
@@ -83,6 +93,8 @@ app.controller("todoCtrl", ['$scope', '$http', '$routeParams', function ($scope,
 			if ($scope.thisTask !== undefined) {
 				data = { name: $scope.thisTask, done: false };
 				$http.post("/todoList/" + listId , data).success(function (response) {
+					// emit todoChange to refresh todos
+					$rootScope.$broadcast('todoChange', []);
 					refresh();
 					$scope.thisTask = "";
 				});
@@ -92,6 +104,8 @@ app.controller("todoCtrl", ['$scope', '$http', '$routeParams', function ($scope,
 
 	$scope.removeTask = function (id) {
 		$http.delete("/todoList/" + listId + "/task/" + id).success(function (response) {
+			// emit todoChange to refresh todos
+			$rootScope.$broadcast('todoChange', []);
 			refresh();
 		});
 	}
@@ -99,6 +113,8 @@ app.controller("todoCtrl", ['$scope', '$http', '$routeParams', function ($scope,
 	$scope.toggleTask = function (task) {
 		var data = {done: task.done}
 		$http.put("/todoList/" + listId + "/task/" + task._id, data).success(function (response) {
+			// emit todoChange to refresh todos
+			$rootScope.$broadcast('todoChange', []);
 			refresh();
 		});
 	}

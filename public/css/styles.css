@@ -5,13 +5,14 @@
 	background: -webkit-linear-gradient(#E68A2E, #FF9933); /* Standard syntax */
     margin-bottom: 10px;
     color: white;
+    padding: 10px;
 }
 
 .row .table {
 	background-color: #ffffff;
 }
 
-.todo-progress-title {
+.todo-progress-text {
 	color: white;
 }
 
@@ -20,6 +21,13 @@
 	text-decoration: line-through;
 }
 
+.table th {
+   text-align: center;   
+}
+
+.myListsIcon {
+	padding: 10px;
+}
 body {
 	background-color: #ffe0b2;
 }
