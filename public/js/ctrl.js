@@ -1,4 +1,4 @@
-var app = angular.module("multiTodo", ['ngRoute']);
+var app = angular.module("multiTodo", ['ui.bootstrap', 'ngRoute']);
 
 // configure our routes
 app.config(function($routeProvider) {
@@ -19,7 +19,10 @@ app.config(function($routeProvider) {
         });
 });
 
-app.controller("todosCtrl", ['$scope', '$http', function ($scope, $http) {
+app.controller("todosCtrl", ['$scope', '$http', '$routeParams', function ($scope, $http, $routeParams) {
+	$scope.listId = $routeParams.id;
+    $scope.init = ($scope.listId == 0) ? true : false;
+
 	function refresh () {
 		$http.get("/todo").success(function (response) {
 			$scope.todoLists = response;
@@ -46,76 +49,73 @@ app.controller("todosCtrl", ['$scope', '$http', function ($scope, $http) {
 			refresh();
 		});
 	};
-
-
-	// Return List progress bar class based on the tasks completion
-	$scope.getClass = function (completion) {
-	  	if (completion < 30) {
-            return "progress-bar-danger";
-        } else if (completion < 60) {
-            return "progress-bar-warning";
-        } else {
-            return "progress-bar-success";
-        }
-	}
-
- 	$scope.$on('todoChange', function(event, args) {
- 		// on todo change refresh todos
- 		refresh();
- 	});
 }])
 
 
-app.controller("todoCtrl", ['$scope', '$rootScope', '$http', '$routeParams', function ($scope, $rootScope, $http, $routeParams) {
-	var listId = $routeParams.id;
-	$scope.listName = $routeParams.name;
+app.controller("todoCtrl", ['$scope', '$rootScope', '$http', '$routeParams', '$timeout',
+	function ($scope, $rootScope, $http, $routeParams, $timeout) {
+		var listId = $routeParams.id;
+		$scope.listName = $routeParams.name;
 
-	function refresh () {
-		if (listId) {
-			$http.get("/todoList/" + listId).success(function (response) {
-				$scope.tasks = response;
-			});
-		}
-	}
-
-	if ($scope.listName === 'init') {
-		$scope.init = true;
-		$rootScope.todosZoomIn = true;
-	} else {
-		$scope.init = false;
-		$rootScope.todosZoomIn = false;
-		refresh();
-	}
-
-	$scope.addTask = function ($event) {
-		var data;
-		if (!arguments.length || $event.which === 13) {
-			if ($scope.thisTask !== undefined) {
-				data = { name: $scope.thisTask, done: false };
-				$http.post("/todoList/" + listId , data).success(function (response) {
-					// emit todoChange to refresh todos
-					$rootScope.$broadcast('todoChange', []);
-					refresh();
-					$scope.thisTask = "";
+		function refresh () {
+			if (listId) {
+				$http.get("/todoList/" + listId).success(function (response) {
+					$scope.tasks = response['tasks'];
+					$scope.progressValue = response['meta']['progress'];
 				});
 			}
 		}
-	};
 
-	$scope.removeTask = function (id) {
-		$http.delete("/todoList/" + listId + "/task/" + id).success(function (response) {
-			// emit todoChange to refresh todos
-			$rootScope.$broadcast('todoChange', []);
+		if ($scope.listName === 'init') {
+			$scope.init = true;
+		} else {
+			$scope.init = false;
 			refresh();
-		});
-	}
+		}
 
-	$scope.toggleTask = function (task) {
-		var data = {done: task.done}
-		$http.put("/todoList/" + listId + "/task/" + task._id, data).success(function (response) {
-			// emit todoChange to refresh todos
-			$rootScope.$broadcast('todoChange', []);
-			refresh();
-		});
+		$scope.addTask = function ($event) {
+			var data;
+			if (!arguments.length || $event.which === 13) {
+				if ($scope.thisTask !== undefined) {
+					data = { name: $scope.thisTask, done: false };
+					$http.post("/todoList/" + listId , data).success(function (response) {
+						refresh();
+						$scope.thisTask = "";
+					});
+				}
+			}
+		};
+
+		$scope.removeTask = function (id) {
+			$http.delete("/todoList/" + listId + "/task/" + id).success(function (response) {
+				refresh();
+			});
+		}
+
+		$scope.toggleTask = function (task) {
+			var data = {done: task.done}
+			$http.put("/todoList/" + listId + "/task/" + task._id, data).success(function (response) {
+				refresh();
+			});
+		}
 	}
-}])
+])
+
+app.controller("progressBar", ['$scope', '$timeout', function($scope, $timeout) {
+  	$timeout(function(){
+  		if ($scope.todo) {
+    		$scope.progressValue = $scope.todo.progress;
+    	}
+  	}, 100);
+
+	// Return progress bar type based on the tasks completion
+	$scope.getType = function (completion) {
+	  	if (completion < 30) {
+            return "danger";
+        } else if (completion < 60) {
+            return "warning";
+        } else {
+            return "success";
+        }
+	}
+}]);

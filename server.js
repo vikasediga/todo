@@ -80,7 +80,13 @@ app.get("/todoList/:name", function (req, res) {
         if (err) {
             res.json(err);
         } else {
-            res.json(records);
+            var todoRef = [{"total": records.length, "_id":req.params.name}];
+            var resp = {};
+            updateStatus(todoRef, function (response) {
+                resp['meta'] = response[0];
+                resp['tasks'] = records;
+                res.json(resp);
+            });
         }
     });
 });
