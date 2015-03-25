@@ -56,12 +56,21 @@ app.controller("todoCtrl", ['$scope', '$rootScope', '$http', '$routeParams', '$t
 	function ($scope, $rootScope, $http, $routeParams, $timeout) {
 		var listId = $routeParams.id;
 		$scope.listName = $routeParams.name;
+		$scope.updatedTasks = {};
+
+		function markTasksEditFlag(show) {
+			$scope.tasks.forEach(function (task) {
+				$scope['edit_' + task._id] = show;
+				$scope.updatedTasks[task._id] = task.name;
+			});
+		}
 
 		function refresh () {
 			if (listId) {
 				$http.get("/todoList/" + listId).success(function (response) {
 					$scope.tasks = response['tasks'];
 					$scope.progressValue = response['meta']['progress'];
+					markTasksEditFlag(false);
 				});
 			}
 		}
@@ -93,11 +102,27 @@ app.controller("todoCtrl", ['$scope', '$rootScope', '$http', '$routeParams', '$t
 		}
 
 		$scope.toggleTask = function (task) {
-			var data = {done: task.done}
+			var data = {done: task.done};
 			$http.put("/todoList/" + listId + "/task/" + task._id, data).success(function (response) {
 				refresh();
 			});
 		}
+
+		$scope.updateTask = function (id) {
+			var data = { name: $scope.updatedTasks[id] };
+			$http.put("/todoList/" + listId + "/task/" + id, data).success(function (response) {
+				refresh();
+			});
+		}
+
+		$scope.editPaneForTask = function (task, show) {
+			markTasksEditFlag(false);
+			$scope['edit_' + task._id] = show;
+		};
+
+		$scope.showEditPane = function (id) {
+			return $scope['edit_' + id];
+		};
 	}
 ])
 

@@ -34,6 +34,19 @@
 	padding: 10px;
 }
 
-body {
+.main {
 	background-color: #ffe0b2;
+	padding: 50px;
+}
+
+.show {
+	display: block;
+}
+
+.hide {
+	display: none;
+}
+
+body {
+	background-color: gray;
 }

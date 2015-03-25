@@ -1,4 +1,4 @@
-<div class="container text-center">
+<div class="container text-center main">
 	<div class="row">
 		<div class='col-md-12' ng-controller="todosCtrl" ng-show="init">
 			<table class="table table-condensed">
@@ -34,7 +34,6 @@
 					<tr ng-repeat="todo in todoLists">
 						<td class="col-md-3" ng-controller="progressBar" ng-hide="{{todo._id === listId}}">
 							<a href="#todoList/{{todo.name}}/{{todo._id}}">{{todo.name | uppercase}}</a>
-							<br>
 						  	<progressbar type="{{getType(todo.progress)}}" value="progressValue">
 						  		<span>{{todo.progress}}%</span>
 						  	</progressbar>
@@ -50,8 +49,9 @@
 		<!-- Show the list once a list is clicked from the todos -->
 		<div class="col-md-9" ng-controller="todoCtrl" ng-hide="init">
 			<div ng-controller="progressBar">
+				<h3>{{listName | uppercase}}</h3>
 				<progressbar  class="progress-striped active" value="progressValue" type="{{getType(progressValue)}}">
-					<span>{{listName | uppercase}}</span>
+					<span>{{progressValue}}%</span>
 				</progressbar>
 			</div>
 			<table class="table table-condensed">
@@ -62,15 +62,25 @@
 				</thead>
 				<tbody>
 					<tr ng-repeat="task in tasks">
-						<td class="col-md-6" ng-class="{'task-done': task.done}">{{task.name}}</td>
+						<td class="col-md-6">
+							<span ng-class="{'task-done': task.done}" ng-hide="showEditPane(task._id)">
+								{{task.name}}
+							</span>
+							<span ng-show="showEditPane(task._id)">
+								<textarea type="text" class="form-control" ng-model="updatedTasks[task._id]"></textarea>
+								<button class="btn btn-info" ng-click="updateTask(task._id)">Update</button>
+								<button class="btn btn-info" ng-click="editPaneForTask(task, false)">Cancel</button>
+							</span>
+						</td>
 						<td class="col-md-1">
 							<input type="checkbox" ng-model="task.done" class="form-control" ng-click="toggleTask(task)">
 						</td>
 						<td class="col-md-2">
-							<button class="btn btn-info">Edit</button>
+							<button class="btn btn-info" ng-click="editPaneForTask(task, true)">Edit</button>
 							<button class="btn btn-danger" ng-click="removeTask(task._id)">-</button>
 						</td>
 					</tr>
+
 				</tbody>
 			</table>
 			<input type="text" id="add-task" class="form-control" placeholder="Add a new task" ng-model="thisTask" ng-keypress="addTask($event)">
