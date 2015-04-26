@@ -1,0 +1,53 @@
+/*Styling for VE personal website home page*/
+
+body {
+  padding: 50px 150px;
+  font-family: 'Raleway', sans-serif;
+  color: gray;
+  background-image: url("/global/images/background.jpg");
+}
+
+h1 {
+  font-size: 48px;
+}
+
+p {
+  color: white;
+}
+
+.header {
+  padding: 20px 0 20px 20px;
+}
+
+.login-button {
+  background-color: black;
+  color: gray;
+  padding: 5px;
+  border-radius: 4px;
+  float: right;
+}
+
+.login-button:hover {
+  text-decoration: none;
+  color: white;
+}
+
+.main {
+  margin-bottom: 50px;
+}
+
+.main img {
+  border: 3px solid gray;
+}
+
+.container {
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 50px;
+}
+
+@media only screen and (max-device-width: 480px) {
+  body {
+    font-size: 28px;
+    padding: 25px;
+  }
+}

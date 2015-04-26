@@ -1,45 +1,56 @@
-
 <!DOCTYPE html>
 <html>
 <head>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-	<!-- Optional theme -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-	<link rel="stylesheet" href="css/styles.css">
-	<title>Multi Todo List</title>
+    <meta charset="utf-8" />
+    <title>Vikas Ediga: Personal website</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="global/css/index.css">
+    <link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
 </head>
-<body ng-app="multiTodo">
-
-    <!-- HEADER AND NAVBAR -->
-    <header>
-        <nav class="navbar navbar-inverse">
-	        <div class="container">
-	            <div class="row">
-	                <a class="navbar-brand" href="#/"><h2>TASK TRACKER</h2></a>
-	            </div>
-	            <div class="row">
-		            <ul class="nav navbar-nav navbar-right">
-		                <li><a href="#/"><i class="fa fa-home"></i> Home</a></li>
-		                <li><a href="#about"><i class="fa fa-shield"></i> About</a></li>
-		                <li><a href="#/todoList/init/0"><i class="fa fa-shield"></i> TODO</a></li>
-		            </ul>
-		        </div>
-	        </div>
-        </nav>
-    </header>
-
-    <!-- MAIN CONTENT AND INJECTED VIEWS -->
-    <div id="main">
-
-        <!-- angular templating -->
-        <!-- this is where content will be injected -->
-        <div ng-view></div>
-
+<body>
+    <div class="container">
+        <div class="row header">
+            <div class="col-md-9"></div>
+            <div class="col-md-3">
+                <a href="/login" class="login-button">Admin</a>
+            </div>
+        </div>
+        <div class="row main">
+            <div class="col-md-9">
+                <h1>Vikas Ediga</h1>
+                <p class="desc">
+                    is an UI engineer working at Riverbed technology inc. He graduated with
+                    a masters degree in Computer science from the University of Southern
+                    California. He previously worked for Alcatel Lucent.
+                </p>
+            </div>
+            <div class="col-md-3">
+                <img src="global/images/me.jpg" class="img-responsive" alt="My image">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <hr>
+            </div>
+        </div>
+        <div class="row footer text-center">
+            <ul class="nav nav-pills">
+                <li role="presentation">
+                    <a href="https://github.com/project-ve/">
+                        <img src="global/images/git.png" class="img-responsive" alt="Link to github repo">
+                    </a>
+                </li>
+                <li role="presentation">
+                    <a href="https://www.linkedin.com/pub/vikas-ediga/24/9a6/439">
+                        <img src="global/images/linkedin.png" class="img-responsive" alt="Link to Linked in">
+                    </a>
+                </li>
+            </ul>
+            <div class="col-md-12">
+                <copyright>&copy; Copyrights 2015-16 Vikas Ediga. All rights reserved.</copyright>
+            </div>
+        </div>
     </div>
-  	<!-- load angular and angular route via CDN -->
-  	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.13/angular.min.js"></script>
-  	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.13/angular-route.js"></script>
-  	<script src="js/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
-	<script src="js/ctrl.js"></script>
 </body>
 </html>
+

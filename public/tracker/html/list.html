@@ -1,0 +1,87 @@
+<div class="container text-center main">
+	<div class="row">
+		<div class='col-md-3' ng-controller="listsCtrl" ng-hide="home">
+			<table class="table">
+				<thead>
+					<th class="table-header">MY LISTS</th>
+				</thead>
+				<tbody>
+					<tr ng-repeat="list in lists">
+						<td class="col-md-3" ng-controller="progressBarCtrl" ng-hide="{{list._id === listId}}">
+							<a href="#/list/{{list.name}}/{{list._id}}">{{list.name | uppercase}}</a>
+						  	<progressbar type="{{getType(list.progress)}}" value="progressValue">
+						  		<span>{{list.progress}}%</span>
+						  	</progressbar>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<input type="text" class="form-control" placeholder="Create a new list" ng-model="newList" ng-keypress="addList($event)">
+			<button class="btn btn-primary" ng-click="addList()">Add</button>
+		</div>
+
+
+		<!-- Show the list table once a list is clicked from the lists table -->
+		<div class="col-md-9 sub-main" ng-controller="listCtrl" ng-hide="home">
+			<div ng-controller="progressBarCtrl">
+				<h2 class="clearfix">
+					{{listName | uppercase}}
+					<span title="Undone task count" class="task-status-block task-undone-block">{{undoneTasks}}</span>
+					<span title="Done task count" class="task-status-block task-done-block">{{doneTasks}}</span>
+				</h2>
+				<progressbar  class="progress-striped active" value="progressValue" type="{{getType(progressValue)}}">
+					<span>{{progressValue}}%</span>
+				</progressbar>
+			</div>
+			<table class="table table-condensed list-table">
+				<thead class="table-header">
+					<th></th>
+					<th>
+						<img class="icon" title="sort" src="global/images/sortDown.png" ng-click="setOrder(true)">
+						<span>TASK</span>
+						<img class="icon" title="sort" src="global/images/sortUp.png" ng-click="setOrder(false)">
+					</th>
+					<th>DONE?</th>
+					<th></th>
+				</thead>
+				<tbody>
+					<tr ng-repeat="task in tasks | orderBy: order" ng-mouseover="taskHoverIn($event)" ng-mouseleave="taskHoverOut($event)">
+						<td class="col-md-1">
+							<div ng-class="{'task-starred': task.starred, 'task-unstarred': !task.starred}" class="icon" ng-click="setStar($event, task)"></div>
+						</td>
+						<td class="col-md-5">
+							<span ng-class="{'task-done': task.done}" ng-hide="showEditPane(task._id)">
+								{{task.name}}
+							</span>
+							<span ng-show="showEditPane(task._id)">
+								<textarea type="text" class="form-control" ng-model="updatedTasks[task._id]"></textarea>
+								<button class="btn btn-info" ng-click="updateTask(task._id)">Update</button>
+								<button class="btn btn-danger" ng-click="editPaneForTask(task, false)">Cancel</button>
+							</span>
+						</td>
+						<td class="col-md-1">
+							<input type="checkbox" ng-model="task.done" class="form-control" ng-click="toggleTask(task)">
+						</td>
+						<td class="col-md-2 icons-container invisible">
+							<img class="icon" title="move" src="/global/images/drag.png">
+							<img class="icon" title="edit" src="/global/images/edit.png" ng-click="editPaneForTask(task, true)">
+							<img class="icon" title="remove" src="/global/images/delete.png" ng-click="removeTask(task._id)">
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<!-- Pagination buttons -->
+			<div ng-show="paginate">
+				<img class="icon" title="Previous Page" src="global/images/prev.png" ng-click="updateTablePage(currPage - 1)">
+				<img class="icon" title="Next Page" src="global/images/next.png" ng-click="updateTablePage(currPage + 1)">
+			</div>
+
+			<!-- Add New Task -->
+			<div class="add-task-container">
+				<input type="text" id="add-task" class="form-control" placeholder="Add a new task" ng-model="thisTask" ng-keypress="addTask($event)">
+				<button class="btn btn-primary" ng-click="addTask()">Add</button>
+			</div>
+		</div>
+	</div>
+</div>

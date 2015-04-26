@@ -1,0 +1,30 @@
+<div class="container text-center main">
+	<div class="row">
+		<div class='col-md-12' ng-controller="listsCtrl" ng-show="home">
+			<table class="table table-condensed">
+				<thead class="table-header">
+					<th>LIST</th>
+					<th>PROGRESS</th>
+					<th></th>
+				</thead>
+				<tbody>
+					<tr ng-repeat="list in lists" ng-mouseover="taskHoverIn($event)" ng-mouseleave="taskHoverOut($event)">
+						<td class="col-md-2">
+							<a href="#/list/{{list.name}}/{{list._id}}">{{list.name | uppercase}}</a>
+						</td>
+						<td class="col-md-3" ng-controller="progressBarCtrl">
+						  	 <progressbar type="{{getType(list.progress)}}" value="progressValue">
+						  	 	<span>{{list.progress}}%</span>
+						  	 </progressbar>
+						</td>
+						<td class="col-md-1 icons-container invisible">
+							<img class="icon" title="remove" src="/global/images/delete.png" ng-click="removeList(list._id)">
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<input type="text" class="form-control" placeholder="Create a new list" ng-model="newList" ng-keypress="addList($event)">
+			<button class="btn btn-primary" ng-click="addList()">Add</button>
+		</div>
+	</div>
+</div>

@@ -1,2 +1,2 @@
 # todo
-Angular Node Todo App
+Angular JS, Express Node JS and Mongo DB Task Tracker app.
