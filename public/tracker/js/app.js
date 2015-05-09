@@ -5,17 +5,12 @@ app.config(function($routeProvider) {
     $routeProvider
         // route for the home page
         .when('/', {
-            templateUrl : 'html/home.html'
+            templateUrl : 'html/lists.html'
         })
 
         // route for the about page
         .when('/about', {
             templateUrl : 'html/about.html'
-        })
-
-        // route for the contact page
-        .when('/lists', {
-            templateUrl : 'html/lists.html'
         })
 
         // route for the contact page

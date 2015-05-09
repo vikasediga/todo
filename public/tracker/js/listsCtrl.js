@@ -9,6 +9,10 @@ app.controller("listsCtrl", ['$scope', '$http', '$routeParams', function ($scope
 	function refresh () {
 		$http.get("/tracker/lists").success(function (response) {
 			$scope.lists = response;
+		}).error(function(response, status) {
+			if (status === 401) {
+				window.location = '/login';
+			}
 		});
 	}
 

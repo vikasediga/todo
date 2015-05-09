@@ -4,15 +4,25 @@
 <head>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 	<link rel="stylesheet" href="global/css/login.css">
-	<title>Login - Vikas Ediga</title>
+	<title>Login</title>
+	<base href="/" />
 </head>
 <body ng-app="login">
 	<div class="login-container text-center" ng-controller="loginCtrl">
-		<h1>Login</h1>
-		<hr>
-		<input type="text" class="form-control" placeholder="username" ng-model="username"><br>
-		<input type="password" class="form-control" placeholder="password" ng-model="pwd"><br>
-		<button class="btn btn-primary" ng-click="sendLoginReq()">Login</button>
+		<div ng-show="self">
+			<h1>Login</h1>
+			<hr>
+			<input type="text" class="form-control" placeholder="username" ng-model="username"><br>
+			<input type="password" class="form-control" placeholder="password" ng-model="pwd"><br>
+			<button class="btn btn-primary" ng-click="sendLoginReq()">Login</button>
+			<button class="btn btn-primary" ng-click="getGuestLogin()">Guest</button>
+		</div>
+		<div ng-show="!self">
+			<h1> Guest Login</h1>
+			<hr>
+			<input type="text" class="form-control" placeholder="name/email" ng-model="guestname"><br>
+			<button class="btn btn-primary" ng-click="sendLoginReq()">Login</button>
+		</div>
 	</div>
 	<!-- load angular and angular route via CDN -->
   	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.13/angular.min.js"></script>

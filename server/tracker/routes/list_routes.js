@@ -54,7 +54,7 @@ module.exports = function(app) {
             if (err) {
                 res.json(err);
             } else {
-                updateCount(tableName, 1, function() {
+                updateCount(req, tableName, 1, function() {
                     res.json({msg: "Successfully added a new task"});
                 });
             }
@@ -76,7 +76,7 @@ module.exports = function(app) {
             if (err) {
                 res.json(err);
             } else {
-                updateCount(tableName, -1, function() {
+                updateCount(req, tableName, -1, function() {
                     res.json({msg: 'Successfully removed task'});
                 });
             }
@@ -104,8 +104,8 @@ module.exports = function(app) {
         Helper function to update the 'total' tasks field in the lists table which
         holds the list of all lists created.
     */
-    function updateCount(listName, add, cb) {
-        db.collection('lists').updateById(listName, { $inc: {total: add}}, function (err) {
+    function updateCount(req, listName, add, cb) {
+        db.collection(req.session.user.username + '_lists').updateById(listName, { $inc: {total: add}}, function (err) {
             err ? res.json(err) : cb();
         });
 

@@ -1,18 +1,24 @@
 /*Styling for login page*/
 
 body {
-  background-color: gray;
+  background-image: url("/global/images/background.jpg");
 }
 
 .login-container {
   border: 1px solid gray;
-  position: absolute;
-  top: 25%;
-  bottom: 25%;
-  left: 30%;
-  right: 30%;
   min-width: 250px;
-  min-height: 350px;
+  max-width: 350px;
   padding: 25px;
+  margin-top: 150px;
   background-color: white;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media only screen and (max-device-width: 280px) {
+  .login-container {
+    margin-top: 50px;
+    padding: 100px;
+
+  }
 }

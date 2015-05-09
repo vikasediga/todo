@@ -2,6 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Vikas Ediga: Personal website</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="global/css/index.css">
@@ -9,12 +10,6 @@
 </head>
 <body>
     <div class="container">
-        <div class="row header">
-            <div class="col-md-9"></div>
-            <div class="col-md-3">
-                <a href="/login" class="login-button">Admin</a>
-            </div>
-        </div>
         <div class="row main">
             <div class="col-md-9">
                 <h1>Vikas Ediga</h1>
@@ -33,21 +28,50 @@
                 <hr>
             </div>
         </div>
+
+        <div class="row text-center">
+            <div class="col-md-12">
+                <h2>Side Projects</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <h4><a href="/login?user=guest&next=/tracker" target="_blank">Task Tracker</a></h4>
+                <p>A single page task/list tracker app built using Angular, Express JS and mongo DB.</p>
+                <ul class="nav nav-pills">
+                    <li role="presentation">
+                        <a href="https://github.com/vikasediga/">
+                            <img class="icon" title="Git-hub" src="global/images/git.png" class="img-responsive" alt="Link to github">
+                        </a>
+                    </li>
+                    <li role="presentation">
+                        <a href="/login?user=guest&next=/tracker" target="_blank" data-modal-info="quiz" data-toggle="modal" data-target="#myModal">
+                            <img class="icon" title="Demo" src="global/images/demo.jpg" class="img-responsive" alt="Link to github">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <hr>
+            </div>
+        </div>
         <div class="row footer text-center">
             <ul class="nav nav-pills">
                 <li role="presentation">
                     <a href="https://github.com/project-ve/">
-                        <img src="global/images/git.png" class="img-responsive" alt="Link to github repo">
+                        <img class="icon" title="Git-hub" src="global/images/git.png" class="img-responsive" alt="Link to github repo">
                     </a>
                 </li>
                 <li role="presentation">
                     <a href="https://www.linkedin.com/pub/vikas-ediga/24/9a6/439">
-                        <img src="global/images/linkedin.png" class="img-responsive" alt="Link to Linked in">
+                        <img class="icon" title="Linked in" src="global/images/linkedin.png" class="img-responsive" alt="Link to Linked in">
                     </a>
                 </li>
             </ul>
             <div class="col-md-12">
-                <copyright>&copy; Copyrights 2015-16 Vikas Ediga. All rights reserved.</copyright>
+                <copyright>&copy; Copyrights 2015-16 <a href="/login">Vikas Ediga</a>. All rights reserved.</copyright>
             </div>
         </div>
     </div>

@@ -11,7 +11,7 @@ module.exports = function(app) {
          {"name":"Fruit list","total":4,"done":3,"_id":"54f56a449867e4306974519b","progress":75},...]
     */
     app.get("/tracker/lists", function (req, res) {
-    	db.collection("lists").find().toArray(function (err, lists) {
+    	db.collection(req.session.user.username + "_lists").find().toArray(function (err, lists) {
             if (err) {
                 res.json(err);
             } else {
@@ -43,7 +43,7 @@ module.exports = function(app) {
             'done': 0
         };
 
-        db.collection("lists").insert(newList, function (err, records) {
+        db.collection(req.session.user.username + "_lists").insert(newList, function (err, records) {
             err ? res.json(err) : res.json({msg: "Successfully created new list"});
         });
     });
@@ -62,7 +62,7 @@ module.exports = function(app) {
         var tableName = req.params.id;
         db.collection(tableName).drop(function () {
             // Ignore the err as it might be because the table was never created but just a reference.
-            db.collection('lists').removeById(tableName, function (err) {
+            db.collection(req.session.user.username + '_lists').removeById(tableName, function (err) {
                 err ? res.json(err) : res.json({msg: 'Successfully removed list'});
             });
         });
