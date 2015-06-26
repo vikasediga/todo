@@ -64,5 +64,5 @@ app.xpense.db = mongo.db("mongodb://localhost:27017/xpenseDB", {native_parser:tr
 require(__dirname + '/server/xpense/routes/routes.js')(app);                          // Include routes
 
 // start server
-app.listen(3000);
-console.log("server listening on port 3000");
+app.listen(5000);
+console.log("server listening on port 5000");
