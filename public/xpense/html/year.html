@@ -1,0 +1,23 @@
+<div class="container main" ng-controller="yearCtrl">
+	<div class="row">
+		<div class='col-md-3 text-center'>
+			<h1>{{currYear}}</h1>
+			<div>
+				<select class="form-control" ng-model="currYear" ng-change="refresh()">
+					<option ng-repeat="each in years">{{each.year}}</option>
+				</select>
+				<select class="form-control" ng-model="currMonth">
+					<option ng-repeat="each in months">{{each}}</option>
+				</select>
+				<button class="btn btn-primary" ng-click="gotoYear()">Go</button>
+			</div>
+			<div>
+				<input type="text" class="form-control" placeholder="Add an year" ng-model="newYear" ng-keypress="addYear($event)">
+				<button class="btn btn-primary" ng-click="addYear()">Add</button>
+			</div>
+		</div>
+		<div class='col-md-9'>
+			<highchart id="yearChart" config="highchartsNG"></highchart>
+		</div>
+	</div>
+</div>

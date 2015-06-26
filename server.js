@@ -10,8 +10,13 @@ var favicon = require('serve-favicon');
 // app set up
 app.use(favicon(__dirname + '/public/global/images/favicon.ico'));
 app.use(express.static(__dirname + '/public'));
+// Tracker assets
 app.use('/tracker/static', express.static(__dirname + '/public/tracker'));
 app.use('/tracker/global', express.static(__dirname + '/public/global'));
+// Xpense assets
+app.use('/xpense/static', express.static(__dirname + '/public/xpense'));
+app.use('/xpense/global', express.static(__dirname + '/public/global'));
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(session({ secret: 's3cRED', key: 'sid' , resave: false}));
@@ -48,6 +53,15 @@ app.tracker.shared = {};
 app.tracker.htmlDir = __dirname + '/public/tracker/html/';
 app.tracker.db = mongo.db("mongodb://localhost:27017/taskTrackerDB", {native_parser:true});  // Include database reference
 require(__dirname + '/server/tracker/routes/routes.js')(app);                            // Include routes
+
+//  ---------
+// | Xpense:|
+//  ---------
+app.xpense = {};
+app.xpense.shared = {};
+app.xpense.htmlDir = __dirname + '/public/xpense/html/';
+app.xpense.db = mongo.db("mongodb://localhost:27017/xpenseDB", {native_parser:true});  // Include database reference
+require(__dirname + '/server/xpense/routes/routes.js')(app);                          // Include routes
 
 // start server
 app.listen(3000);

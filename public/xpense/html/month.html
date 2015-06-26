@@ -1,0 +1,47 @@
+<div class="container main" ng-controller="monthCtrl">
+	<div class="row">
+		<div class='col-md-3'>
+			<h1>{{currMonth}} {{currYear}}</h1>
+			<h3>Total Spending: $ {{total}}</h3>
+			<select class="form-control" ng-model="currMonth" ng-change="gotoMonth()">>
+				<option ng-repeat="each in months">{{each}}</option>
+			</select>
+		</div>
+		<div class='col-md-9'>
+			<!-- <highchart id="monthChart" config="highchartsNG"></highchart> -->
+			<div id="monthChart"></div>
+		</div>
+	</div>
+	<div class="row">
+		<div class='col-md-3'>
+			<!-- <h1>Change Month</h1>
+			<select class="form-control" ng-model="currMonth" ng-change="gotoMonth()">>
+				<option ng-repeat="each in months">{{each}}</option>
+			</select> -->
+		</div>
+		<div class='col-md-9 text-center'>
+			<h1>Report Expense</h1>
+			<table class="table table-condensed">
+				<thead>
+					<th>Description</th>
+					<th>Amount</th>
+					<th></th>
+				</thead>
+				<tbody>
+					<tr ng-repeat="expense in expenses">
+						<td class='col-md-3'>{{expense.desc}}</td>
+						<td class='col-md-2'>{{expense.amount}}</td>
+						<td class='col-md-1'>
+							<img class="icon" title="remove" src="/global/images/delete.png" ng-click="removeExpense(expense._id)">
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<div>
+				<input type="text" class="form-control" ng-model="desc" placeholder="Describe the expense">
+				<input type="text" class="form-control" ng-model="amount" placeholder="Amount">
+				<button class="btn btn-primary" ng-click="addExpense()">Add</button>
+			</div>
+		</div>
+	</div>
+</div>

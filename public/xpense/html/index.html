@@ -1,0 +1,50 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+	<link rel="stylesheet" href="static/css/styles.css">
+	<link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+	<title>Xpense :: Home</title>
+</head>
+<body ng-app="xpense">
+
+    <!-- HEADER AND NAVBAR -->
+    <header>
+        <nav class="navbar navbar-inverse">
+	        <div class="container">
+	            <div class="row">
+	                <a class="navbar-brand" href="/"><h2>Xpense</h2></a>
+	            </div>
+	            <div class="row">
+		            <ul class="nav navbar-nav navbar-right">
+		                <li><a href="/xpense"><i class="fa fa-home"></i> Home</a></li>
+		                <li><a href="/logout"><i class="fa fa-home"></i> Logout</a></li>
+		            </ul>
+		        </div>
+	        </div>
+        </nav>
+    </header>
+
+    <!-- MAIN CONTENT AND INJECTED VIEWS -->
+    <div id="main">
+
+        <!-- angular templating -->
+        <!-- this is where content will be injected -->
+        <div ng-view></div>
+
+    </div>
+  	<!-- load angular and angular route via CDN -->
+  	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.13/angular.min.js"></script>
+  	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.13/angular-route.js"></script>
+  	<script src="global/js/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+  	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  	<script src="http://code.highcharts.com/highcharts.src.js"></script>
+  	<script src="global/js/bower_components/highcharts-ng/dist/highcharts-ng.min.js"></script>
+	<script src="static/js/app.js"></script>
+	<script src="static/js/yearCtrl.js"></script>
+	<script src="static/js/monthCtrl.js"></script>
+</body>
+</html>

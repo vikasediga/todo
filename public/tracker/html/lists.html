@@ -1,6 +1,7 @@
 <div class="container text-center main">
 	<div class="row">
 		<div class='col-md-12' ng-controller="listsCtrl" ng-show="home">
+			<input type="text" class="form-control" placeholder="Search" ng-model="listName">
 			<table class="table table-condensed">
 				<thead class="table-header">
 					<th>LIST</th>
@@ -8,7 +9,7 @@
 					<th></th>
 				</thead>
 				<tbody>
-					<tr ng-repeat="list in lists" ng-mouseover="taskHoverIn($event)" ng-mouseleave="taskHoverOut($event)">
+					<tr ng-repeat="list in lists | filter: listName" ng-mouseover="taskHoverIn($event)" ng-mouseleave="taskHoverOut($event)">
 						<td class="col-md-2">
 							<a href="#/list/{{list.name}}/{{list._id}}">{{list.name | uppercase}}</a>
 						</td>
